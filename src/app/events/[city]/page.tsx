@@ -8,12 +8,12 @@ type EventsPageProps = {
   };
 };
 export default async function EventsPage({ params }: EventsPageProps) {
+  const decodedCity = decodeURIComponent(params.city);
   const response = await fetch(
-    'https://bytegrad.com/course-assets/projects/evento/api/events?city=austin'
+    `https://bytegrad.com/course-assets/projects/evento/api/events?city=${decodedCity}`
   );
   const events: EventoEvent[] = await response.json();
 
-  const decodedCity = decodeURIComponent(params.city);
   // Capitalise first letter of each word
   const capitaliseWords = (str: string) => {
     return str
