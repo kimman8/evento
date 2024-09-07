@@ -6,7 +6,7 @@ type EventsListProps = {
 };
 export default function EventsList({ events }: EventsListProps) {
   return (
-    <section>
+    <section className="flex gap-10 flex-wrap justify-center max-w-[1100px] px-[20px]">
       {events.map((event) => (
         <EventCard key={event.id} event={event} />
       ))}
