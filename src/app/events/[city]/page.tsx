@@ -1,3 +1,4 @@
+import EventsList from '@/components/events-list';
 import H1 from '@/components/h1';
 import { EventoEvent } from '@/lib/types';
 
@@ -11,11 +12,10 @@ export default async function EventsPage({ params }: EventsPageProps) {
     'https://bytegrad.com/course-assets/projects/evento/api/events?city=austin'
   );
   const events: EventoEvent[] = await response.json();
-  console.log(events);
 
   const decodedCity = decodeURIComponent(params.city);
   // Capitalise first letter of each word
-  const capitaliseWords = (str) => {
+  const capitaliseWords = (str: string) => {
     return str
       .split(' ') // Split the string by spaces
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalise first letter of each word
@@ -29,16 +29,7 @@ export default async function EventsPage({ params }: EventsPageProps) {
       <H1>
         {params.city === 'all' ? 'All events' : `Events in ${formattedCity}`}
       </H1>
-      {events.map((event) => (
-        <div
-          key={event.id}
-          className="bg-white/[10%] rounded-lg p-6 mt-6 w-full sm:w-[580px]"
-        >
-          <h2 className="text-xl font-bold">{event.name}</h2>
-          <p className="text-sm text-white/50 mt-2">{event.date}</p>
-          <p className="text-sm text-white/50 mt-2">{event.location}</p>
-        </div>
-      ))}
+      <EventsList events={events} />
     </main>
   );
 }
