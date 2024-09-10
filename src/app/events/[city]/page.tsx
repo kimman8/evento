@@ -11,6 +11,12 @@ type Props = {
   };
 };
 
+type EventsPageProps = Props & {
+  searchParams: {
+    [key: string]: string | string[] | undefined;
+  };
+};
+
 export function generateMetadata({ params }: Props): Metadata {
   return {
     title:
@@ -21,7 +27,11 @@ export function generateMetadata({ params }: Props): Metadata {
   };
 }
 
-export default async function EventsPage({ params }: Props) {
+export default async function EventsPage({
+  params,
+  searchParams,
+}: EventsPageProps) {
+  const page = searchParams.page || 1;
   const decodedCity = decodeURIComponent(params.city);
 
   const formattedCity = capitalize(decodedCity);
@@ -32,7 +42,7 @@ export default async function EventsPage({ params }: Props) {
         {params.city === 'all' ? 'All events' : `Events in ${formattedCity}`}
       </H1>
       <Suspense fallback={<Loading />}>
-        <EventsList decodedCity={decodedCity} />
+        <EventsList decodedCity={decodedCity} page={page} />
       </Suspense>
     </main>
   );
