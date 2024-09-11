@@ -41,8 +41,8 @@ export default async function EventsPage({
       <H1 className="mb-28">
         {params.city === 'all' ? 'All events' : `Events in ${formattedCity}`}
       </H1>
-      <Suspense fallback={<Loading />}>
-        <EventsList decodedCity={decodedCity} page={page} />
+      <Suspense key={decodedCity + page} fallback={<Loading />}>
+        <EventsList decodedCity={decodedCity} page={+page} />
       </Suspense>
     </main>
   );
