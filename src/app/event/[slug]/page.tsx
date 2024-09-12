@@ -18,6 +18,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+export async function generateStaticParams() {
+  return [{ slug: 'comedy-extravaganza' }, { slug: 'film-buffs-symposium' }];
+}
+
 export default async function EventPage({ params }: Props) {
   const slug = params.slug;
   const event = await getEvent(slug);
